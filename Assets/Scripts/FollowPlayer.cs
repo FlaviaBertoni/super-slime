@@ -5,11 +5,15 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public GameObject player;
-    public float startLimit = -8.75f;
-    public float endLimit = 60f;
+    public float startLimitX;
+    public float endLimitX;
+    public float topLimitY;
+    public float bottomLimiY;
+
+
     private float fixedX;
     private float fixedY;
-    private float fixedZ = -10f;
+    private float fixedZ;
 
 
     void Start()
@@ -22,10 +26,13 @@ public class FollowPlayer : MonoBehaviour
     void LateUpdate()
     {
         float x = player.transform.position.x + fixedX;
-        float y = (player.transform.position.y * 0.2f) + fixedY;
+        float y = player.transform.position.y;
 
-        if (x >= endLimit) x = endLimit;
-        if (x < startLimit) x = startLimit;
+        if (x >= endLimitX) x = endLimitX;
+        if (x < startLimitX) x = startLimitX;
+
+        if (y >= topLimitY) y = topLimitY;
+        if (y < bottomLimiY) y = bottomLimiY;
 
         transform.position = new Vector3(x, y, fixedZ);
     }

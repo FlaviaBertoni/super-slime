@@ -9,9 +9,14 @@ public class Timer : MonoBehaviour
     private float time;
     [SerializeField]
     private Text textoTimer;
+    [SerializeField]
+    private AudioSource halfTimeAudio;
+    [SerializeField]
+    private AudioSource counterTimeAudio;
 
     private GameController gameController;
     private float timeRemaning;
+    private bool end;
 
     private Color alertColor = new Color32(222, 42, 51, 255);
     private Color primaryColor = new Color32(76, 69, 117, 255);
@@ -30,15 +35,22 @@ public class Timer : MonoBehaviour
         {
             this.UpdateTimer();
         }
-        else
+        else if (!this.end)
         {
             this.EndTimer();
         }
-        
+
+        if (Mathf.FloorToInt(this.timeRemaning) == Mathf.FloorToInt(this.time / 2))
+        {
+            this.textoTimer.color = Color.yellow;
+            if (!this.halfTimeAudio.isPlaying) this.halfTimeAudio.Play();
+        }
+
     }
 
     public void Restart()
     {
+        this.end = false;
         this.timeRemaning = this.time;
         this.textoTimer.color = this.primaryColor;
     }
@@ -47,6 +59,7 @@ public class Timer : MonoBehaviour
     private void EndTimer()
     {
         this.timeRemaning = 0;
+        this.end = true;
 
         this.textoTimer.color = this.alertColor;
 
