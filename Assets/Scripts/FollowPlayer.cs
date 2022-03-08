@@ -10,22 +10,17 @@ public class FollowPlayer : MonoBehaviour
     public float topLimitY;
     public float bottomLimiY;
 
-
-    private float fixedX;
-    private float fixedY;
     private float fixedZ;
 
 
     void Start()
     {
-        fixedX = transform.position.x;
-        fixedY = transform.position.y;
         fixedZ = transform.position.z;
     }
 
     void LateUpdate()
     {
-        float x = player.transform.position.x + fixedX;
+        float x = player.transform.position.x;
         float y = player.transform.position.y;
 
         if (x >= endLimitX) x = endLimitX;

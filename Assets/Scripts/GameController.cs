@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
     {
        float length = player.Die();
 
-        yield return new WaitForSeconds(length + 0.4f);
+        yield return new WaitForSeconds(length);
 
         this.gameOverInterface.show();
         Time.timeScale = 0;

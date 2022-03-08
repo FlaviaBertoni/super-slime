@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private AudioSource halfTimeAudio;
     [SerializeField]
-    private AudioSource counterTimeAudio;
+    private AudioSource endTimeAudio;
 
     private GameController gameController;
     private float timeRemaning;
@@ -40,7 +40,7 @@ public class Timer : MonoBehaviour
             this.EndTimer();
         }
 
-        if (Mathf.FloorToInt(this.timeRemaning) == Mathf.FloorToInt(this.time / 2))
+        if (Mathf.FloorToInt(this.timeRemaning) == Mathf.FloorToInt(this.time * 0.1f))
         {
             this.textoTimer.color = Color.yellow;
             if (!this.halfTimeAudio.isPlaying) this.halfTimeAudio.Play();
@@ -53,11 +53,15 @@ public class Timer : MonoBehaviour
         this.end = false;
         this.timeRemaning = this.time;
         this.textoTimer.color = this.primaryColor;
+        if (this.halfTimeAudio.isPlaying) this.halfTimeAudio.Stop();
+        if (this.endTimeAudio.isPlaying) this.endTimeAudio.Stop();
     }
 
 
     private void EndTimer()
     {
+        this.halfTimeAudio.Stop();
+        this.endTimeAudio.Play();
         this.timeRemaning = 0;
         this.end = true;
 
